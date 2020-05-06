@@ -24,3 +24,6 @@ npm run test:unit
 ```
 npm run lint
 ```
+
+## Extra information
+[See it live](https://ipaper-challenge.netlify.app/)

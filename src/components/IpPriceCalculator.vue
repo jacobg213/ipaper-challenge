@@ -56,6 +56,7 @@ export default class IpPriceCalculator extends Vue {
   private price = 5;
   private visitorsIncluded = 0;
 
+  // TODO If I was to make this a real thing I would make tiers inputs with default values;
   private flipBookTiers: FlipBookTier[] = [
     {
       minimumFlipBooks: 1,
@@ -94,6 +95,8 @@ export default class IpPriceCalculator extends Vue {
       pricePerThousand: 0.75
     }
   ];
+  // TODO This could be an input as well.
+  private static VISITOR_TIER_STEP = 1000;
 
   recalculate(event?: Event, changedRange?: ChangedRange): void {
     if (event && changedRange) {
@@ -145,7 +148,7 @@ export default class IpPriceCalculator extends Vue {
       for (
         let extraVisitors = extraVisitorsNeeded;
         extraVisitors > 0;
-        extraVisitors -= 1000
+        extraVisitors -= IpPriceCalculator.VISITOR_TIER_STEP
       ) {
         const currentVisitorsTier = this.extraVisitorsTiers.find(
           tier =>

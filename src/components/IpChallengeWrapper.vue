@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h2>Price calculator</h2>
     <IpPriceCalculator />
     <h2>Text renderer</h2>
@@ -39,5 +39,9 @@ li {
 
 a {
   color: #42b983;
+}
+
+.container {
+  margin-bottom: 50px;
 }
 </style>
