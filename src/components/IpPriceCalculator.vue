@@ -10,7 +10,7 @@
       max="25"
       id="flipBooks"
       :value="flipBooks"
-      @change="calculate($event, 'flipBooks')"
+      @change="recalculate($event, 'flipBooks')"
     />
 
     <div>
@@ -24,7 +24,7 @@
       id="visitors"
       :value="visitors"
       step="250"
-      @change="calculate($event, 'visitors')"
+      @change="recalculate($event, 'visitors')"
     />
 
     <div>Your price: &euro;{{ price }}/month.</div>
@@ -50,7 +50,7 @@ type ChangedRange = "flipBooks" | "visitors";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class HelloWorld extends Vue {
+export default class IpPriceCalculator extends Vue {
   private flipBooks = 1;
   private visitors = 250;
   private price = 5;
@@ -95,16 +95,18 @@ export default class HelloWorld extends Vue {
     }
   ];
 
-  calculate(event: Event, changedRange?: ChangedRange): void {
-    const value = (event.target as HTMLInputElement).value;
-    switch (changedRange) {
-      case "flipBooks": {
-        this.flipBooks = parseInt(value);
-        break;
-      }
-      case "visitors": {
-        this.visitors = parseInt(value);
-        break;
+  recalculate(event?: Event, changedRange?: ChangedRange): void {
+    if (event && changedRange) {
+      const value = (event.target as HTMLInputElement).value;
+      switch (changedRange) {
+        case "flipBooks": {
+          this.flipBooks = parseInt(value);
+          break;
+        }
+        case "visitors": {
+          this.visitors = parseInt(value);
+          break;
+        }
       }
     }
 
@@ -116,7 +118,7 @@ export default class HelloWorld extends Vue {
     this.calculateVisitors();
   }
 
-  calculateFlipBooks(): void {
+  private calculateFlipBooks(): void {
     for (
       let flipBooksToCalculate = this.flipBooks;
       flipBooksToCalculate > 0;
@@ -137,7 +139,7 @@ export default class HelloWorld extends Vue {
     }
   }
 
-  calculateVisitors(): void {
+  private calculateVisitors(): void {
     const extraVisitorsNeeded = this.visitors - this.visitorsIncluded;
     if (extraVisitorsNeeded > 0) {
       for (

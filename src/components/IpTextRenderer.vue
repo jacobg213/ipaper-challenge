@@ -3,6 +3,7 @@
     <label for="text">Text to render</label>
     <input id="text" placeholder="Text to render" type="text" v-model="text" />
     <span class="small">The maximum possible font size is set to 1000px.</span>
+
     <div>
       <label for="width">Max width</label>
       <input
@@ -13,6 +14,7 @@
         type="number"
         v-model="width"
       />
+
       <label for="height">Max height</label>
       <input
         placeholder="Height"
@@ -23,12 +25,14 @@
         v-model="height"
       />
     </div>
+
     <label for="font">Font</label>
     <select id="font" name="Font" v-model="font">
       <option value="Verdana">Verdana</option>
       <option value="Arial">Arial</option>
       <option value="Times New Roman">Times New Roman</option>
     </select>
+
     <button @click="renderText()">Match the container</button>
     <span class="small"
       >Please remember to press the button after any changes to re-render.</span
@@ -87,20 +91,19 @@ export default class IpTextRenderer extends Vue {
     this.textElementHeight = bounds.height;
   }
 
+  /**
+   * Using Vue's updated hook instead of creating the recalculation loop myself.
+   */
   updated(): void {
     const width = parseInt(this.width);
     const height = parseInt(this.height);
-    console.log(this.textElementWidth);
-    console.log(this.textElementHeight);
     if (this.textElementWidth > width) {
       this.fontSize -= 0.5;
-      console.log(this.fontSize);
       this.$forceUpdate();
     }
 
     if (this.textElementHeight > height) {
       this.fontSize -= 0.5;
-      console.log(this.fontSize);
       this.$forceUpdate();
     }
   }
