@@ -32,7 +32,7 @@ export interface ExtraVisitorsTier {
   pricePerThousand: number;
 }
 
-type ChangedRange = 'flipBooks' | 'visitors';
+type ChangedRange = "flipBooks" | "visitors";
 
 import { Component, Vue } from "vue-property-decorator";
 
@@ -48,41 +48,41 @@ export default class HelloWorld extends Vue {
       minimumFlipBooks: 1,
       maximumFlipBooks: 5,
       includedVisitors: 2000,
-      pricePerFlipBook: 5,
+      pricePerFlipBook: 5
     },
     {
       minimumFlipBooks: 6,
       maximumFlipBooks: 10,
       includedVisitors: 1000,
-      pricePerFlipBook: 2,
+      pricePerFlipBook: 2
     },
     {
       minimumFlipBooks: 11,
       maximumFlipBooks: 25,
       includedVisitors: 250,
-      pricePerFlipBook: 1,
-    },
+      pricePerFlipBook: 1
+    }
   ];
 
   private extraVisitorsTiers: ExtraVisitorsTier[] = [
     {
       minimumVisitors: 1,
       maximumVisitors: 10000,
-      pricePerThousand: 1.5,
+      pricePerThousand: 1.5
     },
     {
       minimumVisitors: 10001,
       maximumVisitors: 50000,
-      pricePerThousand: 1,
+      pricePerThousand: 1
     },
     {
       minimumVisitors: 50001,
       maximumVisitors: 100000,
-      pricePerThousand: 0.75,
-    },
+      pricePerThousand: 0.75
+    }
   ];
 
-  calculate(event: Event, changedRange: ChangedRange): void {
+  calculate(event: Event, changedRange?: ChangedRange): void {
     const value = (event.target as HTMLInputElement).value;
     switch (changedRange) {
       case "flipBooks": {
@@ -95,27 +95,39 @@ export default class HelloWorld extends Vue {
       }
     }
 
+    // Reset values for recalculation.
     this.price = 0;
     this.visitorsIncluded = 0;
 
+    this.calculateFlipBooks();
+    this.calculateVisitors();
+  }
+
+  calculateFlipBooks(): void {
     for (let flipBooksToCalculate = this.flipBooks; flipBooksToCalculate > 0; flipBooksToCalculate--) {
       const currentFlipBookTier = this.flipBookTiers
         .find(tier => tier.minimumFlipBooks <= flipBooksToCalculate && tier.maximumFlipBooks >= flipBooksToCalculate);
+
       if (!currentFlipBookTier) {
-        throw new Error('FlipBook tier not found! Cannot calculate the price.');
+        throw new Error("FlipBook tier not found! Cannot calculate the price.");
       }
+
       this.price += currentFlipBookTier.pricePerFlipBook;
       this.visitorsIncluded += currentFlipBookTier.includedVisitors;
     }
+  }
 
+  calculateVisitors(): void {
     const extraVisitorsNeeded = this.visitors - this.visitorsIncluded;
     if (extraVisitorsNeeded > 0) {
       for (let extraVisitors = extraVisitorsNeeded; extraVisitors > 0; extraVisitors -= 1000) {
         const currentVisitorsTier = this.extraVisitorsTiers
           .find(tier => tier.minimumVisitors <= extraVisitors && tier.maximumVisitors >= extraVisitors);
+
         if (!currentVisitorsTier) {
-          throw new Error('Visitors tier not found! Cannot calculate the price.');
+          throw new Error("Visitors tier not found! Cannot calculate the price.");
         }
+
         this.price += currentVisitorsTier.pricePerThousand;
       }
     }

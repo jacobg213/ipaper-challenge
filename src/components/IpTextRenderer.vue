@@ -31,10 +31,10 @@ export default class IpTextRenderer extends Vue {
   // Increasing this value will drastically slow down the calculation.
   private static MAX_FONT_SIZE = 1000;
 
-  private text = '';
-  private width = '0';
-  private height = '0';
-  private font = 'Arial';
+  private text = "";
+  private width = "0";
+  private height = "0";
+  private font = "Arial";
 
   private fontSize = 0;
   private textElementWidth = 0;
@@ -43,13 +43,13 @@ export default class IpTextRenderer extends Vue {
   @Ref("textElement") private readonly textElement!: HTMLSpanElement;
 
   @Watch("fontSize")
-  onFontSizeChanged() {
+  onFontSizeChanged(): void {
     this.$nextTick(() => {
       this.updateBounds();
     });
   }
 
-  renderText() {
+  renderText(): void {
     this.fontSize = IpTextRenderer.MAX_FONT_SIZE;
 
     this.$nextTick(() => {
@@ -58,7 +58,7 @@ export default class IpTextRenderer extends Vue {
     });
   }
 
-  updateBounds() {
+  updateBounds(): void {
     const bounds = this.textElement.getBoundingClientRect();
     this.textElementWidth = bounds.width;
     this.textElementHeight = bounds.height;
