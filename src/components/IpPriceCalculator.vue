@@ -4,17 +4,30 @@
       <label for="flipBooks">FlipBooks needed:</label>
       <strong>{{ flipBooks }}</strong>
     </div>
-    <input type="range" min="1" max="25" id="flipBooks" :value="flipBooks" @change="calculate($event, 'flipBooks')">
+    <input
+      type="range"
+      min="1"
+      max="25"
+      id="flipBooks"
+      :value="flipBooks"
+      @change="calculate($event, 'flipBooks')"
+    />
 
     <div>
       <label for="visitors">Expected visitors per month:</label>
       <strong>{{ visitors }}</strong>
     </div>
-    <input type="range" min="250" max="100000" id="visitors" :value="visitors" step="250" @change="calculate($event, 'visitors')">
+    <input
+      type="range"
+      min="250"
+      max="100000"
+      id="visitors"
+      :value="visitors"
+      step="250"
+      @change="calculate($event, 'visitors')"
+    />
 
-    <div>
-      Your price: &euro;{{ price }}/month.
-    </div>
+    <div>Your price: &euro;{{ price }}/month.</div>
   </div>
 </template>
 
@@ -104,9 +117,16 @@ export default class HelloWorld extends Vue {
   }
 
   calculateFlipBooks(): void {
-    for (let flipBooksToCalculate = this.flipBooks; flipBooksToCalculate > 0; flipBooksToCalculate--) {
-      const currentFlipBookTier = this.flipBookTiers
-        .find(tier => tier.minimumFlipBooks <= flipBooksToCalculate && tier.maximumFlipBooks >= flipBooksToCalculate);
+    for (
+      let flipBooksToCalculate = this.flipBooks;
+      flipBooksToCalculate > 0;
+      flipBooksToCalculate--
+    ) {
+      const currentFlipBookTier = this.flipBookTiers.find(
+        tier =>
+          tier.minimumFlipBooks <= flipBooksToCalculate &&
+          tier.maximumFlipBooks >= flipBooksToCalculate
+      );
 
       if (!currentFlipBookTier) {
         throw new Error("FlipBook tier not found! Cannot calculate the price.");
@@ -120,12 +140,21 @@ export default class HelloWorld extends Vue {
   calculateVisitors(): void {
     const extraVisitorsNeeded = this.visitors - this.visitorsIncluded;
     if (extraVisitorsNeeded > 0) {
-      for (let extraVisitors = extraVisitorsNeeded; extraVisitors > 0; extraVisitors -= 1000) {
-        const currentVisitorsTier = this.extraVisitorsTiers
-          .find(tier => tier.minimumVisitors <= extraVisitors && tier.maximumVisitors >= extraVisitors);
+      for (
+        let extraVisitors = extraVisitorsNeeded;
+        extraVisitors > 0;
+        extraVisitors -= 1000
+      ) {
+        const currentVisitorsTier = this.extraVisitorsTiers.find(
+          tier =>
+            tier.minimumVisitors <= extraVisitors &&
+            tier.maximumVisitors >= extraVisitors
+        );
 
         if (!currentVisitorsTier) {
-          throw new Error("Visitors tier not found! Cannot calculate the price.");
+          throw new Error(
+            "Visitors tier not found! Cannot calculate the price."
+          );
         }
 
         this.price += currentVisitorsTier.pricePerThousand;

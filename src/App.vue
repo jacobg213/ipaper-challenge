@@ -14,8 +14,7 @@ import IpChallengeWrapper from "./components/IpChallengeWrapper.vue";
     IpChallengeWrapper
   }
 })
-export default class App extends Vue {
-}
+export default class App extends Vue {}
 </script>
 
 <style lang="scss">

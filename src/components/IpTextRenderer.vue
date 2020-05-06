@@ -1,13 +1,27 @@
 <template>
   <div>
     <label for="text">Text to render</label>
-    <input id="text" placeholder="Text to render" type="text" v-model="text">
+    <input id="text" placeholder="Text to render" type="text" v-model="text" />
     <span class="small">The maximum possible font size is set to 1000px.</span>
     <div>
       <label for="width">Max width</label>
-      <input placeholder="Width" id="width" min="0" step="10" type="number" v-model="width">
+      <input
+        placeholder="Width"
+        id="width"
+        min="0"
+        step="10"
+        type="number"
+        v-model="width"
+      />
       <label for="height">Max height</label>
-      <input placeholder="Height" id="height" min="0" step="10" type="number" v-model="height">
+      <input
+        placeholder="Height"
+        id="height"
+        min="0"
+        step="10"
+        type="number"
+        v-model="height"
+      />
     </div>
     <label for="font">Font</label>
     <select id="font" name="Font" v-model="font">
@@ -16,9 +30,18 @@
       <option value="Times New Roman">Times New Roman</option>
     </select>
     <button @click="renderText()">Match the container</button>
-    <span class="small">Please remember to press the button after any changes to re-render.</span>
-    <div class="render-container" :style="{ width: `${width}px`, height: `${height}px` }">
-      <span ref="textElement" :style="{ fontFamily: font, fontSize: `${fontSize}px` }">{{ text }}</span>
+    <span class="small"
+      >Please remember to press the button after any changes to re-render.</span
+    >
+    <div
+      class="render-container"
+      :style="{ width: `${width}px`, height: `${height}px` }"
+    >
+      <span
+        ref="textElement"
+        :style="{ fontFamily: font, fontSize: `${fontSize}px` }"
+        >{{ text }}</span
+      >
     </div>
   </div>
 </template>
@@ -91,7 +114,9 @@ export default class IpTextRenderer extends Vue {
   background-color: #efefef;
 }
 
-label, input, button {
+label,
+input,
+button {
   display: block;
 }
 

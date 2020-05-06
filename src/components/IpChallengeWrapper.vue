@@ -1,9 +1,9 @@
 <template>
   <div>
     <h2>Price calculator</h2>
-    <IpPriceCalculator/>
+    <IpPriceCalculator />
     <h2>Text renderer</h2>
-    <IpTextRenderer/>
+    <IpTextRenderer />
   </div>
 </template>
 
@@ -15,11 +15,10 @@ import IpTextRenderer from "@/components/IpTextRenderer.vue";
 @Component({
   components: {
     IpPriceCalculator,
-    IpTextRenderer,
+    IpTextRenderer
   }
 })
-export default class IpChallengeWrapper extends Vue {
-}
+export default class IpChallengeWrapper extends Vue {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
