@@ -97,12 +97,7 @@ export default class IpTextRenderer extends Vue {
   updated(): void {
     const width = parseInt(this.width);
     const height = parseInt(this.height);
-    if (this.textElementWidth > width) {
-      this.fontSize -= 0.5;
-      this.$forceUpdate();
-    }
-
-    if (this.textElementHeight > height) {
+    if (this.textElementWidth > width || this.textElementHeight > height) {
       this.fontSize -= 0.5;
       this.$forceUpdate();
     }
